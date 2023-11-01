@@ -35,14 +35,14 @@ $sql = "SELECT * FROM hotel_info_table";
 // WHERE 절을 위한 배열
 $where = array();
 
-// 각 필드에 대해 null이 아닌 경우 WHERE 절에 추가
-if ($hotelName !== null) {
+// 각 필드에 대해 null이 아니고 비어있지 않은 경우 WHERE 절에 추가
+if ($hotelName !== null && $hotelName !== '') {
     $where[] = "hotel_name = ?";
 }
-if ($hotelCharge !== null) {
+if ($hotelCharge !== null && $hotelCharge !== '') {
     $where[] = "hotel_charge = ?";
 }
-if ($hotelIntro !== null) {
+if ($hotelIntro !== null && $hotelIntro !== '') {
     $where[] = "hotel_intro = ?";
 }
 
@@ -54,19 +54,19 @@ if (!empty($where)) {
 // SQL 쿼리 준비
 $stmt = $conn->prepare($sql);
 
-// WHERE 절이 있는 경우 파라미터 바인딩
+// WHERE 절이 있는 경우에만 바인딩 진행
 if (!empty($where)) {
     $types = "";
     $params = array();
-    if ($hotelName !== null) {
+    if ($hotelName !== null && $hotelName !== '') {
         $types .= "s";
         $params[] = &$hotelName;
     }
-    if ($hotelCharge !== null) {
+    if ($hotelCharge !== null && $hotelCharge !== '') {
         $types .= "i";
         $params[] = &$hotelCharge;
     }
-    if ($hotelIntro !== null) {
+    if ($hotelIntro !== null && $hotelIntro !== '') {
         $types .= "s";
         $params[] = &$hotelIntro;
     }

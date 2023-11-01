@@ -50,6 +50,9 @@ async function selectHotelInfo(event) {
     event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
 
     try {
+        // 전송할 데이터 폼 생성
+        const formData = new FormData();
+
         // 데이터 폼에 텍스트 정보 추가
         formData.append("hotelName",   document.getElementById("select-hotel-name").value);
         formData.append("hotelCharge", document.getElementById("select-hotel-charge").value);
