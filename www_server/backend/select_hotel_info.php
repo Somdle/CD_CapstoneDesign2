@@ -1,4 +1,9 @@
 <?php
+// CORS 설정
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
+
 /****************************************************************
  * 기능: 데이터베이스 관련
  * 설명: 

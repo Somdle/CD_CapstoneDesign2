@@ -1,4 +1,9 @@
 <?php
+// CORS 설정
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
+
 /****************************************************************
  * 기능: 비 정상 접근 차단, JSON 데이터 변환
  * 설명: 사용자가 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
