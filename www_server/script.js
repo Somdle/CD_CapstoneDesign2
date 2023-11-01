@@ -44,3 +44,36 @@ async function insertForm(event) {
         return false;
     }
 }
+
+
+async function selectForm(event) {
+    event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
+
+    try {
+        // 데이터 폼에 텍스트 정보 추가
+        formData.append("hotelName",   document.getElementById("select-hotel-name").value);
+        formData.append("hotelCharge", document.getElementById("select-hotel-charge").value);
+        formData.append("hotelIntro",  document.getElementById("select-hotel-intro").value);
+
+        // 데이터 전송 후 응답을 변수에 저장
+        const response = await fetch("./backend/select_hotel_info.php", {
+            method: "POST",
+            body: formData,
+        });
+        
+        // 응답 확인
+        if (response.ok) {
+            const responseData = await response.json(); // 응답을 JSON 형태로 파싱합니다.
+            if(responseData.status == 'success'){
+                console.log("데이터 처리 성공")
+            } else {
+                throw new Error("데이터 처리 실패");
+            }
+        } else {
+            throw new Error("서버 응답 에러");
+        }
+    } catch (error) {
+        console.error("오류정보: ", error);
+        return false;
+    }
+}
