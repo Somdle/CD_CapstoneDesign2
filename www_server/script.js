@@ -59,7 +59,7 @@ async function selectHotelInfo(event) {
         formData.append("hotelIntro",  document.getElementById("select-hotel-intro").value);
 
         // 데이터 전송 후 응답을 변수에 저장
-        const response = await fetch("./backend/select_hotel_info.php", {
+        const response = await fetch("https://main.somdle.duckdns.org/dev/capstone2/backend/select_hotel_info.php", {
             method: "POST",
             body: formData,
         });
@@ -70,6 +70,7 @@ async function selectHotelInfo(event) {
             if(responseData.status == 'success'){
                 console.log("데이터 처리 성공");
                 console.log(responseData.data); // 받은 데이터를 콘솔에 출력
+                document.getElementById("result-hotel-data").innerHTML = JSON.stringify(responseData.data, null, 2);
             } else {
                 throw new Error("데이터 처리 실패");
             }

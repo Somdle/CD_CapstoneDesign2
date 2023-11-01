@@ -1,14 +1,5 @@
 <?php
 /****************************************************************
- * 기능: 비 정상 접근 차단, JSON 데이터 변환
- * 설명: 사용자가 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
- ****************************************************************/
-if($_SERVER["REQUEST_METHOD"] != "POST"){ // post 통신이 아니면
-    echo "<script>location.replace('index.php');</script>";
-    die("비정상접근");
-}
-
-/****************************************************************
  * 기능: 데이터베이스 관련
  * 설명: 
  ****************************************************************/
@@ -37,13 +28,15 @@ $where = array();
 
 // 각 필드에 대해 null이 아니고 비어있지 않은 경우 WHERE 절에 추가
 if ($hotelName !== null && $hotelName !== '') {
-    $where[] = "hotel_name = ?";
+    $hotelName = "%" . $hotelName . "%"; // 검색어 앞뒤에 '%' 추가
+    $where[] = "hotel_name LIKE ?";
 }
 if ($hotelCharge !== null && $hotelCharge !== '') {
     $where[] = "hotel_charge = ?";
 }
 if ($hotelIntro !== null && $hotelIntro !== '') {
-    $where[] = "hotel_intro = ?";
+    $hotelIntro = "%" . $hotelIntro . "%"; // 검색어 앞뒤에 '%' 추가
+    $where[] = "hotel_intro LIKE ?";
 }
 
 // WHERE 절이 있는 경우 SQL 쿼리에 추가
