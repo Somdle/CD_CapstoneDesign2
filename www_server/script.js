@@ -23,7 +23,7 @@ async function insertHotelInfo(event) {
         formData.append("hotelIntro",  document.getElementById("insert-hotel-intro").value);
 
         // 데이터 전송 후 응답을 변수에 저장
-        const response = await fetch("./backend/insert_hotel_info.php", {
+        const response = await fetch("https://main.somdle.duckdns.org/dev/capstone2/backend/insert_hotel_info.php", {
             method: "POST",
             body: formData,
         });
