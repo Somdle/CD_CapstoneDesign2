@@ -71,6 +71,8 @@ async function selectHotelInfo(event) {
                 console.log("데이터 처리 성공");
                 console.log(responseData.data); // 받은 데이터를 콘솔에 출력
                 document.getElementById("result-hotel-data").innerHTML = JSON.stringify(responseData.data, null, 2);
+                
+                document.getElementById("result-hotel-img").src = "data:image/png;base64," + responseData.data[0].hotel_img; // 인코딩된 이미지 데이터 적용
             } else {
                 throw new Error("데이터 처리 실패");
             }

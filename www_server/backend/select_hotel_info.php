@@ -95,4 +95,4 @@ $response = array(
 
 // 배열을 JSON으로 변환하고 출력
 header('Content-Type: application/json');
-echo json_encode($response, JSON_PRETTY_PRINT); // 수정된 부분
+echo json_encode($response, JSON_PRETTY_PRINT);
