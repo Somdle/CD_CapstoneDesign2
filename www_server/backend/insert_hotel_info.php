@@ -51,7 +51,7 @@ try {
         // SQL 쿼리 작성 및 실행
         $sql = "INSERT INTO hotel_img_table (hotel_id, hotel_img) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ib", $hotel_id, $fileDataEncoded);
+        $stmt->bind_param("is", $hotel_id, $fileDataEncoded);
         $stmt->execute();
 
         // 쿼리 성공여부 확인
