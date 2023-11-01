@@ -83,3 +83,6 @@ try {
 // 연결 종료
 $stmt->close();
 $conn->close();
+
+echo json_encode(array("status" => "success", "message" => "삽입 성공"));
+exit();
