@@ -21,7 +21,7 @@ $hotelCharge = isset($_POST["hotelCharge"]) ? mysqli_real_escape_string($conn, $
 $hotelIntro  = isset($_POST["hotelIntro"])  ? mysqli_real_escape_string($conn, $_POST["hotelIntro"])  : null;
 
 // 기본 SQL 쿼리
-$sql = "SELECT * FROM hotel_info_table";
+$sql = "SELECT * FROM hotel_info_table LEFT JOIN hotel_img_table ON hotel_info_table.hotel_id = hotel_img_table.hotel_id";
 
 // WHERE 절을 위한 배열
 $where = array();
