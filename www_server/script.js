@@ -1,4 +1,4 @@
-async function insertForm(event) {
+async function insertHotelInfo(event) {
     event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
 
     try {
@@ -46,7 +46,7 @@ async function insertForm(event) {
 }
 
 
-async function selectForm(event) {
+async function selectHotelInfo(event) {
     event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
 
     try {
@@ -65,7 +65,8 @@ async function selectForm(event) {
         if (response.ok) {
             const responseData = await response.json(); // 응답을 JSON 형태로 파싱합니다.
             if(responseData.status == 'success'){
-                console.log("데이터 처리 성공")
+                console.log("데이터 처리 성공");
+                console.log(responseData.data); // 받은 데이터를 콘솔에 출력
             } else {
                 throw new Error("데이터 처리 실패");
             }

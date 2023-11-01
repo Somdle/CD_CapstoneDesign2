@@ -26,8 +26,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // 파일정보 처리
 if(isset($_FILES['fileData'])){
-    $fileData        = isset($_FILES["fileData"]) ? $_FILES["fileData"] : null;
-    $fileDataEncoded = mysqli_real_escape_string($conn, base64_encode(file_get_contents($fileData)));
+    $fileDataEncoded = mysqli_real_escape_string($conn, base64_encode(file_get_contents($_FILES["fileData"]["tmp_name"])));
 
     $fileName = isset($_POST["fileName"])  ? mysqli_real_escape_string($conn, $_POST["fileName"]) : null;
     $fileType = isset($_POST["fileType"])  ? mysqli_real_escape_string($conn, $_POST["fileType"]) : null;
@@ -84,5 +83,6 @@ try {
 $stmt->close();
 $conn->close();
 
+header('Content-Type: application/json');
 echo json_encode(array("status" => "success", "message" => "삽입 성공"));
 exit();

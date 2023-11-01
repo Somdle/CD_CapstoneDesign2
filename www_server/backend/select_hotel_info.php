@@ -23,3 +23,76 @@ $dbname     = "capstone2_db"; //$db_config['dbname'];
 
 // 데이터베이스 연결
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+// 받은 값 처리
+$hotelName   = isset($_POST["hotelName"])   ? mysqli_real_escape_string($conn, $_POST["hotelName"])   : null;
+$hotelCharge = isset($_POST["hotelCharge"]) ? mysqli_real_escape_string($conn, $_POST["hotelCharge"]) : null;
+$hotelIntro  = isset($_POST["hotelIntro"])  ? mysqli_real_escape_string($conn, $_POST["hotelIntro"])  : null;
+
+// 기본 SQL 쿼리
+$sql = "SELECT * FROM hotel_info_table";
+
+// WHERE 절을 위한 배열
+$where = array();
+
+// 각 필드에 대해 null이 아닌 경우 WHERE 절에 추가
+if ($hotelName !== null) {
+    $where[] = "hotel_name = ?";
+}
+if ($hotelCharge !== null) {
+    $where[] = "hotel_charge = ?";
+}
+if ($hotelIntro !== null) {
+    $where[] = "hotel_intro = ?";
+}
+
+// WHERE 절이 있는 경우 SQL 쿼리에 추가
+if (!empty($where)) {
+    $sql .= " WHERE " . implode(" AND ", $where);
+}
+
+// SQL 쿼리 준비
+$stmt = $conn->prepare($sql);
+
+// WHERE 절이 있는 경우 파라미터 바인딩
+if (!empty($where)) {
+    $types = "";
+    $params = array();
+    if ($hotelName !== null) {
+        $types .= "s";
+        $params[] = &$hotelName;
+    }
+    if ($hotelCharge !== null) {
+        $types .= "i";
+        $params[] = &$hotelCharge;
+    }
+    if ($hotelIntro !== null) {
+        $types .= "s";
+        $params[] = &$hotelIntro;
+    }
+    array_unshift($params, $types);
+    call_user_func_array(array($stmt, 'bind_param'), $params);
+}
+
+// SQL 쿼리 실행
+$stmt->execute();
+
+// 결과를 저장할 배열
+$data = array();
+
+// 결과 가져오기
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    // 각 행을 배열에 추가
+    $data[] = $row;
+}
+
+// status와 데이터를 포함하는 배열 생성
+$response = array(
+    'status' => 'success', // status 추가
+    'data' => $data
+);
+
+// 배열을 JSON으로 변환하고 출력
+header('Content-Type: application/json');
+echo json_encode($response, JSON_PRETTY_PRINT); // 수정된 부분
