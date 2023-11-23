@@ -84,3 +84,36 @@ async function selectHotelInfo(event) {
         return false;
     }
 }
+
+async function deleteHotelInfo(event) {
+    event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
+
+    try {
+        // 전송할 데이터 폼 생성
+        const formData = new FormData();
+
+        // 데이터 폼에 텍스트 정보 추가
+        formData.append("hotelName",   document.getElementById("delete-hotel-name").value);
+
+        // 데이터 전송 후 응답을 변수에 저장
+        const response = await fetch("https://main.somdle.duckdns.org/dev/capstone2/backend/delete_hotel_info.php", {
+            method: "POST",
+            body: formData,
+        });
+        
+        // 응답 확인
+        if (response.ok) {
+            const responseData = await response.json(); // 응답을 JSON 형태로 파싱합니다.
+            if(responseData.status == 'success'){
+                console.log("데이터 처리 성공")
+            } else {
+                throw new Error("데이터 처리 실패");
+            }
+        } else {
+            throw new Error("서버 응답 에러");
+        }
+    } catch (error) {
+        console.error("오류정보: ", error);
+        return false;
+    }
+}
