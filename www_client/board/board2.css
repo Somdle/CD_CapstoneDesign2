@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+.board_title{
+    margin-bottom:  30px;
+}
+strong{
+    font-size:  3em;
+}
+.list_2 {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+.bt_wrap {
+    margin-top: 30px;
+    font-size: 0;
+    text-align: center;
+}
+.on{
+    margin-left: 0;
+    background-color: antiquewhite;
+    color: #000;
+    display: inline-block;
+    min-width: 60px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius:  2px;
+    font-size: 1.4rem;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #000;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+
+
+.board_list > div:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.board_list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.4rem;
+}
+.board_list > .top{
+    border-bottom:  1px solid  #999;
+}
+.top > div {
+    font-weight: 600;
+}
+
+.num {
+    width: 10%;
+}
+
+.title {
+    width: 60%;
+    text-align: left;
+}
+
+.title {
+    text-align: center;
+}
+
+.writer {
+    width: 10%;
+}
+
+.date {
+    width: 10%;
+}
+
+.count {
+    width: 10%;
+}
+.board_page{
+    margin-top: 30px;
+    text-align: center;
+}
+.board_page a{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    line-height: 100%;
+    padding-top: 5px;
+    box-sizing: border-box;
+}
