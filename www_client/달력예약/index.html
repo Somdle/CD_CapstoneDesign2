@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>맥주 행사 정보</title>
+  <style>
+    .calendar {
+      font-family: Arial, sans-serif;
+    }
+    .calendar header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .calendar .days {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .calendar .days li {
+      width: 14.28%;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+      cursor: pointer;
+    }
+    .calendar .days li:hover {
+      background-color: #f0f0f0;
+    }
+    .event-info {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar">
+    <header>
+      <h1>맥주 행사 정보</h1>
+    </header>
+    <div class="datepicker">
+      <input type="date" id="datepicker">
+    </div>
+    <div id="eventInfo" class="event-info">
+      <!--행사 정보 나타낼 구역-->
+    </div>
+  </div>
+
+  <script>
+    const datepicker = document.getElementById('datepicker');
+    const eventInfo = document.getElementById('eventInfo');
+    const eventStartDate = new Date('2024-01-20'); // 행사 시작 날짜
+    const eventEndDate = new Date('2024-02-10'); // 행사 종료 날짜
+
+    // 날짜가 선택될 때마다 호출되는 함ㅁ수
+    datepicker.addEventListener('change', function() {
+      const selectedDate = new Date(this.value); // 선택된 날짜
+
+      // 선택된 날짜가 행사 기간에 속하는지 확인,
+      if (selectedDate >= eventStartDate && selectedDate <= eventEndDate) {
+        // 선택된 날짜가 행사 기간에 해당하는 경우 아래 정보를 보여줌
+        eventInfo.style.display = 'block';
+        eventInfo.innerHTML = `
+          <p>맥주 행사가 진행 중입니다! 한잔해</p>
+          <p>선택된 날짜: ${selectedDate.toLocaleDateString('en-US')}</p>
+        `;
+      } else {
+        // 선택된 날짜가 행사 기간에 해당하지 않는 경우 안내 메시지를 보여줍니다.
+        eventInfo.style.display = 'block';
+        eventInfo.innerHTML = `<p>선택한 날짜에는 맥주 행사가 없음</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
