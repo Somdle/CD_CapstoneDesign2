@@ -1,6 +1,6 @@
 <link rel = "stylesheet" href="board2.css">
 <?php
-$conn = mysqli_connect("localhost", "root", "", "abc_corp");
+$conn = mysqli_connect("192.168.152.62", "root", "", "abc_corp");
 
 if(!$conn){
     echo 'db에 연결하지 못했습니다' .mysqli_connect_error();
