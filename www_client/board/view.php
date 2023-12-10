@@ -6,15 +6,14 @@
 <?php
 //절대경로로 접근, Nginx에 DB정보가 미리 준비되어 있어야함
 $db_config = parse_ini_file('/config/nginx/db_config.ini');
-
 // MySQL 데이터베이스 연결 정보
 $servername = $db_config['host'];
 $username   = $db_config['username'];
 $password   = $db_config['password'];
 $dbname     = "capstone2_db"; //$db_config['dbname'];
-
 // 데이터베이스 연결
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 // 접속 체크
 if ($conn->connect_error) {
     die("접속 실패: " . $conn->connect_error);
