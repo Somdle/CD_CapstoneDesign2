@@ -4,7 +4,7 @@ const weatherWidget = document.getElementById('weatherWidget');
 // OpenWeatherMap API 호출 함수
 async function fetchWeather() {
   try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Warsaw&appid=${API_KEY}&units=metric`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Daejeon&appid=${API_KEY}&units=metric`);
     const data = await response.json();
     displayWeather(data);
   } catch (error) {
@@ -26,6 +26,7 @@ function displayWeather(data) {
       <h6></h6>
     </div>
     <div class="d-flex flex-column text-center mt-5 mb-4">
+      <h4>현재 대전 날씨</h4>
       <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;">${temperature}°C</h6>
       <span class="small" style="color: #868B94">${weatherDescription}</span>
     </div>
