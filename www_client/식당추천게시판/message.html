@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식당 추천 게시판</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #board {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #post-form {
+            margin-bottom: 20px;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-4">식당 추천 게시판</h1>
+    
+        <form id="post-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자 이름:</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+    
+            <div class="mb-3">
+                <label for="message" class="form-label">입력 메시지:</label>
+                <textarea class="form-control" id="message" rows="5" required></textarea>
+            </div>
+    
+            <button type="button" class="btn btn-primary" onclick="addPost()">글 등록</button>
+        </form>
+    
+        <div id="posts" class="mt-4"></div>
+    </div>
+
+<script>
+    // 게시물을 localStorage에서 불러오기
+    var savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+
+    // 초기 게시물 표시
+    displayPosts();
+
+    function addPost() {
+        var username = document.getElementById('username').value;
+        var message = document.getElementById('message').value;
+
+        if (username && message) {
+            var postContainer = document.getElementById('posts');
+
+            var postDiv = document.createElement('div');
+            postDiv.className = 'post';
+
+            var postHeader = document.createElement('h3');
+            postHeader.textContent = username;
+
+            var postTime = document.createElement('small');
+            postTime.textContent = getCurrentDateTime();
+
+            var postMessage = document.createElement('p');
+            postMessage.textContent = message;
+
+            var deleteButton = document.createElement('span');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = '삭제';
+            deleteButton.onclick = function() {
+                confirmDelete(postDiv);
+            };
+
+            postDiv.appendChild(postHeader);
+            postDiv.appendChild(postTime);
+            postDiv.appendChild(postMessage);
+            postDiv.appendChild(deleteButton);
+
+            postContainer.appendChild(postDiv);
+
+            // 게시 후 폼 초기화
+            document.getElementById('username').value = '';
+            document.getElementById('message').value = '';
+
+            // 새로운 게시물을 저장하고 localStorage 업데이트
+            savedPosts.push({
+                username: username,
+                message: message,
+                time: getCurrentDateTime()
+            });
+            localStorage.setItem('posts', JSON.stringify(savedPosts));
+        } else {
+            alert('사용자 이름과 메시지를 입력하세요.');
+        }
+    }
+
+    function confirmDelete(postElement) {
+        var confirmation = confirm('게시물을 삭제하시겠습니까?');
+        if (confirmation) {
+            deletePost(postElement);
+        }
+    }
+
+    function deletePost(postElement) {
+        var postIndex = Array.from(postElement.parentNode.children).indexOf(postElement);
+        savedPosts.splice(postIndex, 1);
+        localStorage.setItem('posts', JSON.stringify(savedPosts));
+        postElement.remove();
+    }
+
+    function getCurrentDateTime() {
+        var now = new Date();
+
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var dayOfWeek = getDayOfWeek(now.getDay());
+
+        return `${year}-${month}-${day} (${dayOfWeek}) ${hours}:${minutes}`;
+    }
+
+    function getDayOfWeek(day) {
+        var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        return daysOfWeek[day];
+    }
+
+    function displayPosts() {
+        var postContainer = document.getElementById('posts');
+        postContainer.innerHTML = '';
+
+        for (var i = 0; i < savedPosts.length; i++) {
+            var postDiv = document.createElement('div');
+            postDiv.className = 'post';
+
+            var postHeader = document.createElement('h3');
+            postHeader.textContent = savedPosts[i].username;
+
+            var postTime = document.createElement('small');
+            postTime.textContent = savedPosts[i].time;
+
+            var postMessage = document.createElement('p');
+            postMessage.textContent = savedPosts[i].message;
+
+            var deleteButton = document.createElement('span');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = '삭제';
+            deleteButton.onclick = function() {
+                confirmDelete(postDiv);
+            };
+
+            postDiv.appendChild(postHeader);
+            postDiv.appendChild(postTime);
+            postDiv.appendChild(postMessage);
+            postDiv.appendChild(deleteButton);
+
+            postContainer.appendChild(postDiv);
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
