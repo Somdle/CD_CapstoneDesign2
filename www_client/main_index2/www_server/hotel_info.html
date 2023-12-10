@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호텔 정보</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            padding-top: 60px;
+        }
+        .jumbotron {
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            background-color: #e9ecef;
+            border-radius: 0.3rem;
+        }
+        .container {
+            max-width: 960px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-7">호텔 예약 정보</h1>
+        </div>
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="image/hotel1.jpg" class="d-block w-100" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/hotel2.jpg" class="d-block w-100" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/hotel3.jpg" class="d-block w-100" alt="Third slide">
+                </div>
+        
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title" id="hotel-name"></h2>
+                        <p class="card-text" id="hotel-charge"></p>
+                        <p class="card-text" id="hotel-intro"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = () => {
+   
+            const params = new URLSearchParams(window.location.search);
+            const hotelName = params.get('name');
+            const hotelCharge = params.get('charge');
+            const hotelIntro = params.get('intro');
+
+            document.getElementById("hotel-name").innerText = hotelName;
+            document.getElementById("hotel-charge").innerText = `예약비: ${hotelCharge}원`;
+            document.getElementById("hotel-intro").innerText = `호텔 소개: ${hotelIntro}`;
+        };
+    </script>
+</body>
+</html>

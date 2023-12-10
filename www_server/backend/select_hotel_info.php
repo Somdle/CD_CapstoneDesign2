@@ -49,7 +49,7 @@ if (!empty($where)) {
     $sql .= " WHERE " . implode(" AND ", $where);
 }
 
-$sql .= " LIMIT 10"; // 최대 10개의 행만 반환
+$sql .= " LIMIT 50"; // 최대 10개의 행만 반환
 
 // SQL 쿼리 준비
 $stmt = $conn->prepare($sql);

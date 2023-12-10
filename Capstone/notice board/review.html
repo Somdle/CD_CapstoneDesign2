@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식당 리뷰 게시판</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #reviewList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #reviewList li {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            position: relative;
+        }
+        .deleteButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>가게 리뷰 게시판</h2>
+
+<form id="reviewForm">
+    <label for="foodName">음식 이름:</label><input type="text" id="foodName" required>
+    <br>
+    <label for="eatingTime">먹는 시간:</label><input type="datetime-local" id="eatingTime" required>
+    <br>
+    <label for="score">평점:</label>
+    <select id="score" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <label for="review">리뷰:</label><textarea id="review" rows="4" required></textarea>
+    <br>
+    <button type="button" onclick="submitReview()">리뷰 작성</button>
+</form>
+
+<h3>리뷰 목록</h3>
+<ul id="reviewList"></ul>
+
+<script>
+    function submitReview() {
+        const foodName = document.getElementById('foodName').value;
+        const eatingTime = document.getElementById('eatingTime').value;
+        const score = document.getElementById('score').value;
+        const reviewText = document.getElementById('review').value;
+
+        if (foodName && eatingTime && score && reviewText) {
+            const review = { foodName, eatingTime, score, reviewText };
+            saveReview(review);
+            displayReviews();
+            clearForm();
+        } else {
+            alert('모든 필드를 입력하세요.');
+        }
+    }
+     //리뷰를 localstorage에 저장하는 함수   
+    function saveReview(review) {
+        let reviews = getReviewsFromLocalStorage();
+        reviews.push(review);
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+    }
+    //localstorage에서 리뷰 목록을 가져오는 함수
+    function getReviewsFromLocalStorage() {
+        const reviews = localStorage.getItem('reviews');
+        return reviews ? JSON.parse(reviews) : [];
+    }
+    //리뷰 목록을 화면에 표시하는 함수
+    function displayReviews() {
+        const reviewList = document.getElementById('reviewList');
+        reviewList.innerHTML = '';
+
+        const reviews = getReviewsFromLocalStorage();
+        reviews.forEach((review, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${review.foodName}</strong>: ${review.reviewText}<br>
+                평점: ${review.score}, 먹는 시간: ${review.eatingTime}
+                <button class="deleteButton" onclick="confirmDelete(${index})">삭제</button>
+            `;
+            reviewList.appendChild(li);
+        });
+    }
+    //리뷰를 삭제 전에 한 번 더 확인하는 함수
+    function confirmDelete(index) {
+        const confirmation = confirm('리뷰 삭제하시겠습니까?');
+        if (confirmation) {
+            deleteReview(index);
+        }
+    }
+    // 리뷰를 삭제하는 함수
+    function deleteReview(index) {
+        let reviews = getReviewsFromLocalStorage();
+        reviews.splice(index, 1);
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+        displayReviews();
+    }
+    //초기화하는 함수
+    function clearForm() {
+        document.getElementById('foodName').value = '';
+        document.getElementById('eatingTime').value = '';
+        document.getElementById('score').value = '1';
+        document.getElementById('review').value = '';
+    }
+
+    displayReviews();   //리뷰 목록을 표시하는 함수 호출
+</script>
+
+</body>
+</html>

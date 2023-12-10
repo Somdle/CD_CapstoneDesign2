@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cd 2 api test</title>
+    <style>
+        img {
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>추가</h1>
+    <form id="insert-hotel" onsubmit="insertHotelInfo(event)">
+        <div>
+            <label for="insert-hotel-name">이름</label>
+            <input type="text" id="insert-hotel-name" required>
+        </div>
+        <div>
+            <label for="insert-hotel-charge">숙박비</label>
+            <input type="text" id="insert-hotel-charge" required>
+        </div>
+        <div>
+            <label for="insert-hotel-intro">소개</label>
+            <input type="text" id="insert-hotel-intro" required>
+        </div>
+        <div>
+            <label for="insert-hotel-img">이미지</label>
+            <input type="file" id="insert-hotel-img" required>
+        </div>
+        <div>
+            <button type="reset">내용지우기</button>
+            <button type="submit">등록</button>
+        </div>
+    </form>
+
+    <h1>조회</h1>
+    <form id="select-hotel" onsubmit="selectHotelInfo(event)">
+        <div>
+            <label for="select-hotel-name">이름</label>
+            <input type="text" id="select-hotel-name">
+        </div>
+        <div>
+            <label for="select-hotel-charge">숙박비</label>
+            <input type="text" id="select-hotel-charge">
+        </div>
+        <div>
+            <label for="select-hotel-intro">소개</label>
+            <input type="text" id="select-hotel-intro">
+        </div>
+        <div>
+            <button type="reset">내용지우기</button>
+            <button type="submit">조회</button>
+        </div>
+    </form>
+    <h1>제거</h1>
+    <form id="delete-hotel" onsubmit="deleteHotelInfo(event)">
+        <div>
+            <label for="delete-hotel-name">이름</label>
+            <input type="text" id="delete-hotel-name" required>
+        </div>
+        <div>
+            <button type="reset">내용지우기</button>
+            <button type="submit">제거</button>
+        </div>
+    </form>
+
+    <h1>조회결과</h1>
+    
+    <p id="result-hotel-data"></p>
+
+    <h1>이미지</h1>
+    <img id="result-hotel-img">
+
+    <script src="script.js"></script>
+</body>
+</html>

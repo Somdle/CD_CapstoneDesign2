@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abc 게시판</title>
+    <!-- 부트스트랩 CDN 링크 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel = "stylesheet" href="board2.css"> <!-- 기존에 사용하던 CSS 파일 유지 -->
+    <style>
+        /* 추가적인 스타일링을 위한 CSS 코드 */
+        /* 여기에 사용자 정의 스타일링 추가 가능 */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="board_wrap">
+            <div class="board_title">
+                <strong>여행 친구 게시판</strong>
+                <p class="list_2">여행 친구를 찾아보세요!!!</p>
+            </div>
+            <div class="board_list_wrap">
+                <div class="board_list">
+                    <div class="row top">
+                        <div class="col">번호</div>
+                        <div class="col">제목</div>
+                        <div class="col">글쓴이</div>
+                        <div class="col">작성일</div>
+                        <div class="col">조회</div>
+                    </div>
+                    <hr>
+                    <!-- 여기에 게시판 목록을 출력하는 코드 -->
+                    <iframe class="top" src="list.php"></iframe>
+                    <hr>
+                    <!-- 추가적인 내용들 -->
+                </div>
+                <div class="bt_wrap mt-3"> <!-- 상단 마진을 추가 -->
+                    <a href="write.php" class="btn btn-primary">등록</a> <!-- 부트스트랩 버튼 스타일 적용 -->
+                </div>
+            </div>
+            <div class="mt-5"> <!-- 상단 마진을 추가하여 글 검색 및 삭제 영역과 구분 -->
+                <h2>글 검색</h2>
+                <!-- 검색 폼 -->
+                <!-- 삭제 폼 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 및 필요한 JavaScript CDN 링크 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
